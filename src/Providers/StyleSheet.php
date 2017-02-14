@@ -17,7 +17,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      */
     public function minify()
     {
-        $minified = Minify_CSS::minify($this->appended, ['preserveComments' => false]);
+        $minified = Minify_CSS::minify( $this->FirstImportUrl( $this->appended ), ['preserveComments' => false]);
 
         return $this->put($minified);
     }
@@ -56,7 +56,6 @@ class StyleSheet extends BaseProvider implements MinifyInterface
 
                 $http_response_header = array(false);
 
-
                 if (strpos($http_response_header[0], '200') === false) {
                     throw new FileNotExistException("File '{$file}' does not exist");
                 }
@@ -79,7 +78,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
         $content            = file_get_contents($file);
         $contentReplace     = [];
         $contentReplaceWith = [];
-        preg_match_all('/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $content, $matches, PREG_PATTERN_ORDER);
+        preg_match_all('/url\(([\s])?([\"|\'])((?!http(s)).)(.*?)([\"|\'])?([\s])?\)/i', $content, $matches, PREG_PATTERN_ORDER);
         if (!count($matches)) {
             return $content;
         }
@@ -97,4 +96,21 @@ class StyleSheet extends BaseProvider implements MinifyInterface
         }
         return str_replace($contentReplace, $contentReplaceWith, $content);
     }
+
+    /**
+     * Change css @import url to First Line.
+     *
+     * @param string $content
+     * @return string
+     */
+    public function FirstImportUrl($content)
+	{
+		preg_match_all("/\@(import)(.*)/", $content, $importLine);
+		$importLineTemp = '';
+		foreach ($importLine[0] as $value) {
+			$content = str_replace($value, '', $content);
+			$importLineTemp .= $value."\n";
+		}
+		return $importLineTemp.$content;
+	}
 }
