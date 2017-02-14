@@ -8,6 +8,7 @@
 With this package you can minify your existing stylessheet and javascript files for laravel 5. This process can be a little tough, this package simplies this process and automates it.
 
 Original code [DevFactoryCH/minify](https://github.com/DevFactoryCH/minify)
+
 For Larvel 4 please use [ceesvanegmond/minify](https://github.com/ceesvanegmond/minify)
 
 ## Installation
