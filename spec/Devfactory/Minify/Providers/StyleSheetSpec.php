@@ -10,7 +10,7 @@ class StyleSheetSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Devfactory\Minify\Providers\StyleSheet');
+        $this->shouldHaveType('Fahri5567\Minify\Providers\StyleSheet');
     }
 
     function it_adds_one_file()
@@ -52,7 +52,7 @@ class StyleSheetSpec extends ObjectBehavior
 
     function it_throws_exception_when_file_not_exists()
     {
-        $this->shouldThrow('Devfactory\Minify\Exceptions\FileNotExistException')
+        $this->shouldThrow('Fahri5567\Minify\Exceptions\FileNotExistException')
             ->duringAdd('foobar');
     }
 
@@ -63,7 +63,7 @@ class StyleSheetSpec extends ObjectBehavior
       $file->makeDirectory('dir_bar', 0775, true)->willReturn(false);
 
       $this->beConstructedWith(null, null, $file);
-      $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
+      $this->shouldThrow('Fahri5567\Minify\Exceptions\DirNotExistException')
             ->duringMake('dir_bar');
     }
 
@@ -71,7 +71,7 @@ class StyleSheetSpec extends ObjectBehavior
     {
         vfsStream::setup('css',0555, array());
 
-        $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotWritableException')
+        $this->shouldThrow('Fahri5567\Minify\Exceptions\DirNotWritableException')
             ->duringMake(vfsStream::url('css'));
     }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Devfactory\Minify\Providers;
+namespace Fahri5567\Minify\Providers;
 
-use Devfactory\Minify\Contracts\MinifyInterface;
-use CssMinifier;
+use Fahri5567\Minify\Contracts\MinifyInterface;
+use Minify_CSS;
 
 class StyleSheet extends BaseProvider implements MinifyInterface
 {
@@ -17,9 +17,9 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      */
     public function minify()
     {
-        $minified = new CssMinifier($this->appended);
+        $minified = Minify_CSS::minify($this->appended, ['preserveComments' => false]);
 
-        return $this->put($minified->getMinified());
+        return $this->put($minified);
     }
 
     /**
@@ -36,8 +36,8 @@ class StyleSheet extends BaseProvider implements MinifyInterface
 
     /**
      * Override appendFiles to solve css url path issue
-     * 
-     * @throws \Devfactory\Minify\Exceptions\FileNotExistException
+     *
+     * @throws \Fahri5567\Minify\Exceptions\FileNotExistException
      */
     protected function appendFiles()
     {
@@ -68,7 +68,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
 
     /**
      * Css url path correction
-     * 
+     *
      * @param string $file
      * @return string
      */
@@ -96,6 +96,5 @@ class StyleSheet extends BaseProvider implements MinifyInterface
             }
         }
         return str_replace($contentReplace, $contentReplaceWith, $content);
-    }
     }
 }

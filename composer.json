@@ -1,5 +1,5 @@
 {
-  "name": "devfactory/minify",
+  "name": "fahri5567/minify",
   "keywords": ["minify", "laravel5"],
   "description": "A package for minifying styles and javascript for laravel 5 ",
   "license": "MIT",
@@ -11,8 +11,7 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "tedivm/jshrink": "~1.0",
-    "natxet/CssMin": "3.*",
+    "mrclay/minify": "^2.2",
     "illuminate/filesystem": "~5.0",
     "illuminate/support": "~5.0"
   },
@@ -22,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Devfactory\\Minify\\": "src/"
+      "Fahri5567\\Minify\\": "src/"
     }
   },
   "minimum-stability": "stable"

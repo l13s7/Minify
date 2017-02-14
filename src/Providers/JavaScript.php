@@ -1,7 +1,7 @@
-<?php namespace Devfactory\Minify\Providers;
+<?php namespace Fahri5567\Minify\Providers;
 
-use Devfactory\Minify\Contracts\MinifyInterface;
-use JShrink\Minifier;
+use Fahri5567\Minify\Contracts\MinifyInterface;
+use JSMin;
 
 class JavaScript extends BaseProvider implements MinifyInterface
 {
@@ -15,7 +15,7 @@ class JavaScript extends BaseProvider implements MinifyInterface
      */
     public function minify()
     {
-        $minified = Minifier::minify($this->appended);
+        $minified = JSMin::minify($this->appended);;
 
         return $this->put($minified);
     }

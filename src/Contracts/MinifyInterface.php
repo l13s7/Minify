@@ -1,4 +1,4 @@
-<?php namespace Devfactory\Minify\Contracts;
+<?php namespace Fahri5567\Minify\Contracts;
 
 interface MinifyInterface {
 

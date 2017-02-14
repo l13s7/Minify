@@ -1,4 +1,4 @@
-<?php namespace Devfactory\Minify;
+<?php namespace Fahri5567\Minify;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
