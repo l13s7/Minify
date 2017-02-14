@@ -1,12 +1,13 @@
 # Minify
 
-[![Build Status](https://travis-ci.org/DevFactoryCH/minify.svg)](https://travis-ci.org/DevFactoryCH/minify)
-[![Latest Stable Version](https://poser.pugx.org/devfactory/minify/v/stable.svg)](https://packagist.org/packages/devfactory/minify)
-[![Total Downloads](https://poser.pugx.org/devfactory/minify/downloads.svg)](https://packagist.org/packages/devfactory/minify)
-[![License](https://poser.pugx.org/devfactory/minify/license.svg)](https://packagist.org/packages/devfactory/minify)
+[![Build Status](https://travis-ci.org/Fahri5567/Minify.svg)](https://travis-ci.org/Fahri5567/Minify)
+[![Latest Stable Version](https://poser.pugx.org/fahri5567/minify/v/stable)](https://packagist.org/packages/fahri5567/minify)
+[![Total Downloads](https://poser.pugx.org/fahri5567/minify/downloads)](https://packagist.org/packages/fahri5567/minify)
+[![License](https://poser.pugx.org/fahri5567/minify/license)](https://packagist.org/packages/fahri5567/minify)
 
 With this package you can minify your existing stylessheet and javascript files for laravel 5. This process can be a little tough, this package simplies this process and automates it.
 
+Original code [DevFactoryCH/minify](https://github.com/DevFactoryCH/minify)
 For Larvel 4 please use [ceesvanegmond/minify](https://github.com/ceesvanegmond/minify)
 
 ## Installation
@@ -17,7 +18,7 @@ Begin by installing this package through Composer.
 ```js
 	{
 	    "require": {
-	    	"devfactory/minify": "1.0.*"
+	    	"fahri5567/minify": "1.0.*"
 		}
 	}
 ```
@@ -27,9 +28,9 @@ Begin by installing this package through Composer.
 
 Then register the service provider and Facade by opening `config/app.php`
 
-    'Devfactory\Minify\MinifyServiceProvider',
+    'Fahri5567\Minify\MinifyServiceProvider',
 
-    'Minify'        => 'Devfactory\Minify\Facades\MinifyFacade',
+    'Minify'        => 'Fahri5567\Minify\Facades\MinifyFacade',
 
 
 Publish the config file:
