@@ -11,6 +11,11 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      *  The extension of the outputted file.
      */
     const EXTENSION = '.css';
+    
+    /**
+     *  Regex find url().
+     */	
+    const REGEX_URL = '~url\s*\(\s*[\'"]?(?!(((?:https?:)?\/\/)|(?:data\:?:)))([^\'"\)]+)[\'"]?\s*\)~i';
 
     /**
      * @return string
@@ -55,12 +60,17 @@ class StyleSheet extends BaseProvider implements MinifyInterface
                 )));
 
                 $http_response_header = array(false);
-
+                $contents = file_get_contents($file, false, $context);
+                $subst  = 'url("'.dirname( $file ).'/$3")';
+                $contents = preg_replace(self::REGEX_URL, $subst, $contents);
+                
                 if (strpos($http_response_header[0], '200') === false) {
                     throw new FileNotExistException("File '{$file}' does not exist");
                 }
             }
-            $contents = $this->urlCorrection($file);
+            else {
+                $contents = $this->urlCorrection($file);
+            }
             $this->appended .= $contents."\n";
         }
     }
@@ -73,28 +83,11 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      */
     public function urlCorrection($file)
     {
-        $folder             = str_replace(public_path(), '', $file);
-        $folder             = str_replace(basename($folder), '', $folder);
-        $content            = file_get_contents($file);
-        $contentReplace     = [];
-        $contentReplaceWith = [];
-        preg_match_all('/url\(([\s])?([\"|\'])((?!http(s)).)(.*?)([\"|\'])?([\s])?\)/i', $content, $matches, PREG_PATTERN_ORDER);
-        if (!count($matches)) {
-            return $content;
-        }
-        foreach ($matches[0] as $match) {
-            if (strpos($match, "'") != false) {
-                $contentReplace[]     = $match;
-                $contentReplaceWith[] = str_replace('url(\'', 'url(\''.$folder, $match);
-            } elseif (strpos($match, '"') !== false) {
-                $contentReplace[]     = $match;
-                $contentReplaceWith[] = str_replace('url("', 'url("'.$folder, $match);
-            } else {
-                $contentReplace[]     = $match;
-                $contentReplaceWith[] = str_replace('url(', 'url('.$folder, $match);
-            }
-        }
-        return str_replace($contentReplace, $contentReplaceWith, $content);
+        $folder  = str_replace(public_path(), '', $file);
+        $folder  = str_replace(basename($folder), '', $folder);
+        $content = file_get_contents($file);
+        $subst = 'url("'.$folder.'$3")';
+        return preg_replace(self::REGEX_URL, $subst, $content);
     }
 
     /**
@@ -104,8 +97,8 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      * @return string
      */
     public function FirstImportUrl($content)
-	{
-		preg_match_all("/\@(import)(.*)/", $content, $importLine);
+    {
+        preg_match_all("/\@(import)(.*)/", $content, $importLine);
 		$importLineTemp = '';
 		foreach ($importLine[0] as $value) {
 			$content = str_replace($value, '', $content);
